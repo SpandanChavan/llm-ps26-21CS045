@@ -15,7 +15,7 @@
   --bg:#fff; --sec:#f5f5f3; --line:#e5e5e5; --surface:#fff; --nav:rgba(255,255,255,.86);
   --on-lime:#18260D; --deep:#18260D; --hl:var(--lime); --find-ink:#9a6408; --overlay:rgba(10,14,7,.35);
   --amber:#f2b33d; --amber-bg:#fdf3df; --red:#c2321f; --red-bg:#fbe9e6;
-  --grid:rgba(24,38,13,.055); --shadow:var(--ink);
+  --grid:rgba(24,38,13,.055); --shadow:var(--ink); --mline:rgba(214,72,56,.45); --mred:#c2321f;
   --display:"Satoshi","Inter",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
   --ease:cubic-bezier(.22,1,.36,1);
 }
@@ -25,7 +25,7 @@
   --bg:#0e1309; --sec:#141a0e; --line:#273020; --surface:#182013; --nav:rgba(14,19,9,.82);
   --deep:#1f2b15; --hl:rgba(171,211,122,.38); --find-ink:#f2c46a;
   --amber-bg:rgba(242,179,61,.14); --red:#ff8f7a; --red-bg:rgba(255,120,95,.13); --overlay:rgba(0,0,0,.55);
-  --grid:rgba(171,211,122,.06); --shadow:var(--lime);
+  --grid:rgba(171,211,122,.06); --shadow:var(--lime); --mline:rgba(255,143,122,.35); --mred:#ff8f7a;
   color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
@@ -133,59 +133,73 @@ h1 .hl::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.08em;heigh
 #result.show{display:block}
 section{scroll-margin-top:68px}
 .timeline.learn .step:not(.in){display:none}
-.verify.locked p{filter:blur(6px);user-select:none}
+
+/* ---------- answer sheet ---------- */
+.sheet{--rule:28px;--margin:72px;position:relative;max-width:900px;margin:0 auto;background:var(--surface);border:1.5px solid var(--ink);box-shadow:10px 10px 0 var(--lime);
+  background-image:linear-gradient(90deg,transparent calc(var(--margin) - 1px),var(--mline) calc(var(--margin) - 1px),var(--mline) var(--margin),transparent var(--margin)),
+  repeating-linear-gradient(transparent 0 calc(var(--rule) - 1px),var(--grid) calc(var(--rule) - 1px) var(--rule));
+  animation:sheetIn .7s var(--ease)}
+@keyframes sheetIn{from{opacity:0;transform:translateY(24px) rotate(-.6deg)}}
+.sheet-top,.sheet-foot{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--soft);background:var(--surface)}
+.sheet-top{border-bottom:1.5px solid var(--ink)}
+.sheet-foot{border-top:1px dashed var(--line);flex-wrap:wrap;margin-top:12px}
+.sheet-actions{display:flex;gap:8px}
+.row{display:grid;grid-template-columns:var(--margin) 1fr;align-items:start;padding-right:28px}
+.margin{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--mred);text-align:right;padding:6px 14px 0 0}
+.qrow{padding-top:22px;padding-right:180px}
+.q-echo{font-family:var(--display);font-weight:500;font-size:20px;line-height:1.45;color:var(--ink);padding-left:18px;margin:0;max-width:none}
+.data{margin:18px 0 8px 18px;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);background:var(--surface)}
+.data>div{padding:10px 14px}
+.data>div+div{border-left:1px solid var(--line)}
+.data .dh{display:block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;margin-bottom:4px}
+.data .given .dh{color:var(--lime-ink)}.data .find .dh{color:var(--find-ink)}
+.data span:not(.dh){font-size:15px}
+.sol-label .label{padding:14px 0 0 18px;margin-bottom:4px}
+
+.step{position:relative;display:grid;grid-template-columns:var(--margin) 1fr;padding:8px 28px 8px 0;opacity:0;transform:translateX(-14px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.step.in{opacity:1;transform:none}
+.step .node{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--mred);text-align:right;padding:4px 14px 0 0}
+.step .body{padding-left:18px;position:relative}
+.step .body::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--lime);transform:scaleY(0);transform-origin:top;transition:transform .5s .15s var(--ease)}
+.step.in .body::before{transform:scaleY(1)}
+.step .explain{font-size:16px;color:var(--text)}
+.calc{display:block;width:fit-content;max-width:100%;margin-top:6px;font-family:var(--mono);font-size:14px;color:var(--ink);background:none;padding:0;border:0}
+.calc::before{content:"= ";color:var(--soft)}
+.hint-txt{font-size:13px;color:var(--soft);margin-left:10px}
+#nextWrap{padding:6px 0 4px}#nextWrap>div:last-child{padding-left:18px}
+
+.ans-row{padding-top:18px}
+.therefore{font-family:var(--display);font-size:30px;line-height:1;padding-top:14px;color:var(--ink)}
+.answer{padding-left:18px}
+.ans-box{position:relative;display:inline-flex;align-items:baseline;gap:16px;padding:12px 22px 12px 18px;border:2px solid var(--ink);background:var(--lime-bg)}
+.ans-box::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-9px;height:3px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);height:7px;box-sizing:border-box;transform:scaleX(0);transform-origin:left;transition:transform .6s .2s var(--ease)}
+.answer:not(.locked) .ans-box::after{transform:scaleX(1)}
+.ans-label{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--lime-ink);letter-spacing:.06em}
+.answer .big{font-family:var(--display);font-weight:900;font-size:clamp(30px,4.6vw,46px);letter-spacing:-1px;line-height:1.05;color:var(--ink);word-break:break-word}
+.answer.locked .big{filter:blur(10px);user-select:none}
+.answer.locked .ans-box{border-style:dashed}
+#revealBtn{margin:16px 0 0 0;display:flex}
+.locked-actions .tbtn#copyBtn{display:none}
+
+/* teacher's stamp */
+.stamp{position:absolute;top:58px;right:26px;z-index:2;width:136px;padding:10px 10px 8px;border:2.5px solid currentColor;text-align:center;font-family:var(--mono);text-transform:uppercase;transform:rotate(-7deg);opacity:0;mix-blend-mode:multiply}
+[data-theme="dark"] .stamp{mix-blend-mode:normal}
+.stamp.show{animation:stampIn .55s .25s var(--ease) forwards}
+@keyframes stampIn{0%{opacity:0;transform:rotate(-16deg) scale(1.8)}60%{opacity:.95;transform:rotate(-6deg) scale(.94)}100%{opacity:.92;transform:rotate(-7deg) scale(1)}}
+.stamp::before{content:"";position:absolute;inset:3px;border:1px solid currentColor;opacity:.6;pointer-events:none}
+.stamp .sg{display:block;font-size:34px;font-weight:600;line-height:1}
+.stamp .st{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;margin-top:4px}
+.stamp .ss{display:block;font-size:9.5px;letter-spacing:.08em;opacity:.8;margin-top:2px}
+.stamp.pass{color:var(--lime-ink)}.stamp.fail{color:var(--red)}.stamp.skipped,.stamp.error{color:var(--find-ink)}
+.stamp.locked{filter:blur(5px)}
+.vnote{font-family:var(--body);letter-spacing:0;font-size:13px;color:var(--muted);flex:1;min-width:220px}
+.vnote code{font-family:var(--mono);font-size:12px;background:var(--sec);padding:1px 5px;color:var(--ink);word-break:break-all}
+.vnote.locked{filter:blur(5px);user-select:none}
+#raw{margin:0;border-top:1px dashed var(--line);background:var(--sec);max-height:280px}
 .sec-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
 h2{font-family:var(--display);font-weight:700;color:var(--ink);font-size:clamp(30px,4.6vw,48px);letter-spacing:-1.25px;line-height:1.1}
-.q-echo{color:var(--muted);margin-top:8px;max-width:640px}
-.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:20px}
-.card{background:var(--surface);border:1px solid var(--line);padding:30px}
 .label{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-bottom:12px}
 
-.facts{display:grid;gap:10px;margin-bottom:26px;padding-bottom:22px;border-bottom:1px dashed var(--line)}
-.fact{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:baseline;font-size:15px}
-.tag{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 0;border-top:2px solid}
-.tag.given{color:var(--lime-ink);border-color:var(--lime)}
-.tag.find{color:var(--find-ink);border-color:var(--amber)}
-
-.timeline{position:relative}
-.step{position:relative;display:grid;grid-template-columns:36px 1fr;gap:16px;padding-bottom:22px;opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.step.in{opacity:1;transform:none}
-.step::before{content:"";position:absolute;left:17px;top:36px;bottom:0;width:1.5px;background:var(--line)}
-.step:last-child::before{display:none}
-.step.in::before{background:linear-gradient(var(--lime-ink),var(--line))}
-.node{width:36px;height:36px;border:1.5px solid var(--lime-ink);background:var(--surface);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:13px;color:var(--ink);transition:background .4s;z-index:1}
-.step.in .node{color:var(--on-lime);background:var(--lime);border-color:var(--lime)}
-.step .explain{font-size:16px;color:var(--text);padding-top:6px}
-.calc{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:13.5px;background:var(--sec);border-left:3px solid var(--lime);padding:6px 12px;color:var(--ink)}
-.next-wrap{padding-left:52px}
-
-.side{display:grid;gap:20px;align-content:start}
-.answer{background:var(--deep);color:#fff;border:1px solid var(--line);position:relative;overflow:hidden}
-.answer::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(171,211,122,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(171,211,122,.08) 1px,transparent 1px);background-size:22px 22px;pointer-events:none}
-.answer>*{position:relative}
-.answer .label{color:#a3b896}
-.answer .big{font-family:var(--display);font-weight:900;font-size:clamp(34px,5vw,52px);letter-spacing:-1.2px;line-height:1.05;color:var(--lime);word-break:break-word}
-.answer.locked .big{filter:blur(10px);user-select:none}
-.answer .btn{margin-top:18px}
-.copy{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
-.copy:hover{box-shadow:3px 3px 0 var(--lime)}
-.answer.locked .copy{display:none}
-
-.verdict{display:flex;align-items:center;gap:14px}
-.vglyph{width:48px;height:48px;display:grid;place-items:center;font-family:var(--mono);font-size:26px;font-weight:600;border:1.5px solid;flex:0 0 auto;animation:stamp .5s var(--ease)}
-@keyframes stamp{from{transform:scale(1.4) rotate(-8deg);opacity:0}}
-.vtext b{display:block;font-family:var(--display);font-size:18px;color:var(--ink)}
-.vtext span{font-size:13px;color:var(--soft)}
-.verify.pass .vglyph{color:var(--lime-ink);border-color:var(--lime);background:var(--lime-bg)}
-.verify.fail .vglyph{color:var(--red);border-color:var(--red);background:var(--red-bg)}
-.verify.skipped .vglyph,.verify.error .vglyph{color:var(--find-ink);border-color:var(--amber);background:var(--amber-bg)}
-.verify p{color:var(--muted);font-size:14px;margin-top:14px}
-.verify code{font-family:var(--mono);font-size:12.5px;background:var(--sec);padding:2px 6px;color:var(--ink);word-break:break-all}
-
-details summary{cursor:pointer;font-family:var(--mono);font-size:13px;color:var(--muted);list-style:none}
-details summary::-webkit-details-marker{display:none}
-details summary::before{content:"[+] "}
-details[open] summary::before{content:"[-] "}
 pre{white-space:pre-wrap;font-family:var(--mono);font-size:12px;background:var(--sec);padding:14px;margin-top:10px;max-height:300px;overflow:auto}
 
 /* ---------- how it works: the equation ---------- */
@@ -256,7 +270,18 @@ kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-b
   .topic:nth-child(n+4){border-top:1px solid var(--line)}
 }
 @media (max-width:520px){
-  .stat{padding:0 14px}.stat b{font-size:34px}.card{padding:22px}
+  .stat{padding:0 14px}.stat b{font-size:34px}
+  .sheet{--margin:40px;box-shadow:6px 6px 0 var(--lime)}
+  .row,.step{padding-right:14px}.qrow{padding-right:14px}
+  .margin,.step .node{padding-right:8px}
+  .q-echo{font-size:17px;padding-left:12px}.step .body,.answer,.sol-label .label{padding-left:12px}
+  .data{grid-template-columns:1fr;margin-left:12px}.data>div+div{border-left:0;border-top:1px solid var(--line)}
+  .stamp{top:48px;right:10px;width:86px;padding:6px 4px 5px;border-width:2px}
+  .stamp .sg{font-size:22px}.stamp .st{font-size:9.5px;letter-spacing:.08em}.stamp .ss{font-size:7.5px}
+  .qrow{padding-right:100px}
+  .therefore{font-size:24px}
+  .ans-box{padding:10px 14px}
+  .sheet-top span:first-child{display:none}.sheet-top{justify-content:flex-end;font-size:11px}
   nav .btn,.tbtn .tl{display:none}
   .explainer{grid-template-columns:1fr;gap:10px}.explainer .ex-n{font-size:40px}
   .solver-bar .btn{flex:1;justify-content:center}
@@ -310,27 +335,43 @@ kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-b
 
 <section id="result"><div class="wrap">
   <div class="sec-head">
-    <div><div class="label">Your solution</div><h2>Here's how to think about it</h2><p class="q-echo" id="qEcho"></p></div>
+    <div><div class="label">Your solution</div><h2>Here's how to think about it</h2></div>
     <button class="btn ghost" id="again">Solve another</button>
   </div>
-  <div class="grid">
-    <div class="card">
-      <div class="facts" id="facts"></div>
-      <div class="label">Steps</div>
-      <div class="timeline" id="timeline"></div>
-      <div class="next-wrap" id="nextWrap" hidden><button class="btn" id="nextBtn">Show next step</button></div>
+
+  <article class="sheet" id="sheet">
+    <header class="sheet-top">
+      <span>SOLVELY ANSWER SHEET</span><span id="sheetMeta">SHEET 01</span>
+    </header>
+
+    <div class="stamp" id="verify" aria-live="polite"></div>
+
+    <div class="row qrow"><div class="margin">Q.</div><p class="q-echo" id="qEcho"></p></div>
+
+    <div class="row" id="factsRow"><div class="margin"></div>
+      <div class="data" id="facts"></div>
     </div>
-    <div class="side">
-      <div class="card answer" id="answerCard">
-        <div class="label">Final answer</div>
-        <div class="big" id="final"></div>
+
+    <div class="row sol-label"><div class="margin"></div><div class="label">Solution</div></div>
+    <div class="timeline" id="timeline"></div>
+    <div class="row" id="nextWrap" hidden><div class="margin"></div><div><button class="btn" id="nextBtn">Write next line</button> <span class="hint-txt">Try it in your head first.</span></div></div>
+
+    <div class="row ans-row"><div class="margin therefore">&there4;</div>
+      <div class="answer" id="answerCard">
+        <div class="ans-box"><span class="ans-label">ANS</span><span class="big" id="final"></span></div>
         <button class="btn" id="revealBtn" hidden>Reveal answer</button>
-        <button class="btn copy" id="copyBtn">Copy answer</button>
       </div>
-      <div class="card verify" id="verify"></div>
-      <div class="card"><details><summary>Raw model output</summary><pre id="raw"></pre></details></div>
     </div>
-  </div>
+
+    <footer class="sheet-foot">
+      <div id="verifyNote" class="vnote"></div>
+      <div class="sheet-actions">
+        <button class="tbtn" id="copyBtn">Copy answer</button>
+        <button class="tbtn" id="rawBtn" aria-expanded="false">Raw output</button>
+      </div>
+    </footer>
+    <pre id="raw" hidden></pre>
+  </article>
 </div></section>
 
 <section class="how wrap" id="how">
@@ -447,17 +488,21 @@ async function solve(){
   finally{stopLoader();go.innerHTML=GO_LABEL;sync()}
 }
 function render(problem){
-  $('qEcho').textContent='"'+problem+'"';
-  $('facts').innerHTML=(data.given?`<div class="fact"><span class="tag given">Given</span><span>${md(data.given)}</span></div>`:'')+
-                       (data.to_find?`<div class="fact"><span class="tag find">To find</span><span>${md(data.to_find)}</span></div>`:'');
-  $('facts').hidden=!data.given&&!data.to_find;
+  $('qEcho').textContent=problem;
+  $('facts').innerHTML=(data.given?`<div class="given"><span class="dh">DATA</span><span>${md(data.given)}</span></div>`:'')+
+                       (data.to_find?`<div class="find"><span class="dh">REQUIRED</span><span>${md(data.to_find)}</span></div>`:'');
+  $('factsRow').hidden=!data.given&&!data.to_find;
+  $('facts').style.gridTemplateColumns=data.given&&data.to_find?'':'1fr';
   steps=data.steps.length?data.steps:[{n:1,explain:data.raw,calc:''}];
-  $('timeline').innerHTML=steps.map(s=>`<div class="step"><div class="node">${pad(s.n)}</div><div><div class="explain">${md(s.explain)}</div>${s.calc?`<code class="calc">${md(s.calc)}</code>`:''}</div></div>`).join('');
+  $('timeline').innerHTML=steps.map(s=>`<div class="step"><div class="node">(${s.n})</div><div class="body"><div class="explain">${md(s.explain)}</div>${s.calc?`<code class="calc">${md(s.calc.replace(/^=\s*/,''))}</code>`:''}</div></div>`).join('');
   $('final').innerHTML=md(data.final||'Not found');
-  $('raw').textContent=data.raw;
-  renderVerify();
+  $('raw').textContent=data.raw;$('raw').hidden=true;$('rawBtn').setAttribute('aria-expanded','false');
+  $('sheetMeta').textContent=new Date().toLocaleString(undefined,{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).toUpperCase()+' / '+steps.length+' STEPS';
   const learn=$('learn').checked;
-  $('answerCard').classList.toggle('locked',learn);$('verify').classList.toggle('locked',learn);$('timeline').classList.toggle('learn',learn);$('revealBtn').hidden=!learn;
+  $('answerCard').classList.toggle('locked',learn);$('timeline').classList.toggle('learn',learn);$('revealBtn').hidden=!learn;
+  $('sheet').classList.toggle('locked-actions',learn);
+  renderVerify(learn);
+  $('sheet').style.animation='none';void $('sheet').offsetWidth;$('sheet').style.animation='';
   $('result').classList.add('show');$('result').scrollIntoView({behavior:'smooth'});
   shown=0;
   if(learn){showNext()}else{steps.forEach((_,i)=>setTimeout(showNext,350+i*260))}
@@ -467,20 +512,25 @@ function showNext(){
   const learn=$('learn').checked;$('nextWrap').hidden=!learn||shown>=els.length;
   if(learn&&shown>=els.length)unlock();
 }
-function unlock(){$('answerCard').classList.remove('locked');$('verify').classList.remove('locked');$('revealBtn').hidden=true}
+function unlock(){$('answerCard').classList.remove('locked');$('sheet').classList.remove('locked-actions');$('revealBtn').hidden=true;
+  $('verifyNote').classList.remove('locked');const st=$('verify');st.classList.remove('locked','show');void st.offsetWidth;st.classList.add('show')}
+$('rawBtn').onclick=()=>{const r=$('raw');r.hidden=!r.hidden;$('rawBtn').setAttribute('aria-expanded',String(!r.hidden));$('rawBtn').textContent=r.hidden?'Raw output':'Hide raw output'};
 $('nextBtn').onclick=()=>{showNext();$('nextWrap').scrollIntoView({behavior:'smooth',block:'nearest'})};
 $('revealBtn').onclick=()=>{document.querySelectorAll('.step').forEach(s=>s.classList.add('in'));shown=steps.length;$('nextWrap').hidden=true;unlock()};
 $('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(data.final);$('copyBtn').textContent='Copied';setTimeout(()=>$('copyBtn').textContent='Copy answer',1600)}catch(e){toast('Could not copy')}};
 
-function renderVerify(){
+function renderVerify(locked){
   const v=data.verification,s=v.status;
   const glyph={pass:'=',fail:'≠',skipped:'?',error:'?'}[s];
-  const label={pass:'Verified by SymPy',fail:'Mismatch found',skipped:'Not checked',error:'Check failed'}[s];
-  const sub={pass:'Steps and answer agree',fail:'Steps and answer disagree',skipped:'Nothing numeric to check',error:'Could not evaluate'}[s];
+  const label={pass:'Checked',fail:'Recheck',skipped:'Unchecked',error:'Unchecked'}[s];
   let detail=esc(v.message);
-  if(data.expression&&v.computed!==undefined)detail=`Recomputed <code>${esc(data.expression)}</code> = <b>${+v.computed.toFixed(6)}</b>`+(s==='fail'?`, but the answer says <b>${v.stated}</b>. Double-check the steps.`:', which matches the final answer.');
-  $('verify').className='card verify '+s+($('verify').classList.contains('locked')?' locked':'');
-  $('verify').innerHTML=`<div class="label">Arithmetic check</div><div class="verdict"><div class="vglyph">${glyph}</div><div class="vtext"><b>${label}</b><span>${sub}</span></div></div><p>${detail}</p>`;
+  if(data.expression&&v.computed!==undefined)detail=`SymPy recomputed <code>${esc(data.expression)}</code> = <b>${+v.computed.toFixed(6)}</b>`+(s==='fail'?`, but the answer says <b>${v.stated}</b>. Double-check the steps.`:', which matches the answer.');
+  const st=$('verify');
+  st.className='stamp '+s+(locked?' locked':'');
+  st.innerHTML=`<span class="sg">${glyph}</span><span class="st">${label}</span><span class="ss">by SymPy</span>`;
+  st.setAttribute('aria-label','Arithmetic check: '+label);
+  void st.offsetWidth;st.classList.add('show');
+  $('verifyNote').innerHTML=detail;$('verifyNote').className='vnote'+(locked?' locked':'');
 }
 
 // ---------- theme ----------

@@ -25,7 +25,7 @@ python app.py              # opens http://localhost:8000
 | File | Purpose |
 |---|---|
 | `app.py` | FastAPI server (`/api/solve`) |
-| `static/index.html` | Web UI: hero, topic index, step timeline, Learn mode, verification card, equation explainer |
+| `static/index.html` | Web UI: hero, topic index, exam-style answer sheet (margin-numbered steps, boxed answer, SymPy stamp), Learn mode, equation explainer |
 | `solver.py` | Prompt, LLM call, output parsing, SymPy verification |
 | `requirements.txt` | Dependencies |
 | `.env.example` | Template for the API key (real `.env` is git-ignored) |
@@ -33,5 +33,6 @@ python app.py              # opens http://localhost:8000
 ## Screenshots
 ![home](screenshots/1_home.jpg)
 ![solution](screenshots/2_solution_verified.jpg)
+![answer](screenshots/6_answer_box.jpg)
 ![dark mode](screenshots/4_dark_mode.jpg)
 ![history](screenshots/5_history.jpg)
