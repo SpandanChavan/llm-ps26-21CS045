@@ -32,7 +32,9 @@ Students often understand arithmetic but fail to convert a word problem into the
 ## 5. Results & Observations
 - The step-by-step format made solutions easy to follow for students.
 - The SymPy check catches cases where the explanation and final number disagree.
+- Testing found the model sometimes answered in LaTeX (`\text{}`, `\Rightarrow`); fixed by adding a "plain text only" rule to the prompt plus a clean-up step in the UI.
+- The original model (Llama 3.3 70B) was retired by Groq during development; switching to GPT-OSS 120B only needed a one-line change.
 - Limitations: needs internet/API key; verification checks arithmetic, not whether the model chose the right equation; geometry diagrams / images are not supported.
 
 ## 6. Conclusion & Future Scope
-A working LLM tutor that explains word problems and self-checks its arithmetic. Future work: Hindi/Marathi support, "hint mode" that reveals one step at a time, solving equations symbolically with SymPy `solve()`, and image input (photo of textbook problem).
+A working LLM tutor that explains word problems and self-checks its arithmetic. Future work: Hindi/Marathi support, solving equations symbolically with SymPy `solve()` to check the method and not only the arithmetic, image input (photo of a textbook problem), and a practice mode that generates similar problems for the student to try.
