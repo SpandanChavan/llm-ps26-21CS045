@@ -1,3 +1,5 @@
+<p align="center"><img src="static/img/logo-light.png" alt="Solvely" height="80"></p>
+
 # Solvely: Math Word Problem Solver (LLM Mini Project)
 
 **Problem statement:** Students struggle with word problems. This app solves a math word problem step by step, explains each step in simple words, and verifies the arithmetic with Python (SymPy).

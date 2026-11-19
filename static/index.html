@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Solvely | Math Word Problem Solver</title>
+<link rel="icon" type="image/png" href="/static/img/favicon.png">
+<link rel="apple-touch-icon" href="/static/img/mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap" rel="stylesheet">
@@ -43,10 +45,10 @@ nav{position:sticky;top:0;z-index:20;background:var(--nav);backdrop-filter:blur(
 nav.scrolled{border-bottom-color:var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
 .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:23px;color:var(--ink);letter-spacing:-.5px;text-decoration:none}
-.logo-mark{width:28px;height:28px;background:var(--lime);position:relative;overflow:hidden}
-.logo-mark::before,.logo-mark::after{content:"";position:absolute;left:6px;right:6px;height:3px;background:var(--on-lime);transition:transform .45s var(--ease)}
-.logo-mark::before{top:9px}.logo-mark::after{bottom:9px}
-.logo:hover .logo-mark::before{transform:translateX(4px)}.logo:hover .logo-mark::after{transform:translateX(-4px)}
+.logo-img{display:block;height:40px;width:auto;transition:transform .45s var(--ease)}
+.logo:hover .logo-img{transform:rotate(-2deg) scale(1.03)}
+.logo-d{display:none}
+[data-theme="dark"] .logo-l{display:none}[data-theme="dark"] .logo-d{display:block}
 .nav-links{display:flex;gap:28px;font-size:15px}
 .nav-links a{color:var(--text);text-decoration:none;position:relative}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
@@ -320,7 +322,7 @@ kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-b
 </head>
 <body>
 <nav id="nav"><div class="wrap">
-  <a class="logo" href="#top" aria-label="Solvely home"><span class="logo-mark"></span>solvely</a>
+  <a class="logo" href="#top" aria-label="Solvely home"><img class="logo-img logo-l" src="/static/img/logo-light.png" alt="Solvely" width="110" height="40"><img class="logo-img logo-d" src="/static/img/logo-dark.png" alt="" aria-hidden="true" width="110" height="40"></a>
   <div class="nav-links"><a href="#top">Solve</a><a href="#how">How it works</a><a href="#result" id="navResult">Last answer</a></div>
   <div class="nav-right">
     <button class="tbtn" id="histBtn" aria-label="Open solve history" title="History (H)"><span class="tl">History</span><span class="count" id="histCount">[0]</span></button>

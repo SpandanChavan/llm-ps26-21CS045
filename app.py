@@ -8,12 +8,14 @@ import webbrowser
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from solver import MODEL, solve, structure
 
 app = FastAPI(title="Math Word Problem Solver")
 STATIC = os.path.join(os.path.dirname(__file__), "static")
+app.mount("/static", StaticFiles(directory=STATIC), name="static")
 
 
 class Problem(BaseModel):
