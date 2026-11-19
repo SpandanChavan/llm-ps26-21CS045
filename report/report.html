@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Solvely - Procedure Report</title>
+<style>
+@page{size:A4;margin:16mm 17mm 14mm}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Calibri,Arial,sans-serif;font-size:10.2pt;line-height:1.5;color:#1f2a17}
+.page{page-break-after:always;min-height:265mm;position:relative}
+.page:last-child{page-break-after:auto}
+
+/* header */
+.head{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:10px;border-bottom:2.5px solid #18260D}
+.head h1{font-size:19pt;line-height:1.15;color:#18260D;font-weight:700}
+.head .sub{font-size:10pt;color:#5b6652;margin-top:3px}
+.head img{height:40px}
+.meta{width:100%;border-collapse:collapse;margin:12px 0 4px;font-size:9.4pt}
+.meta td{padding:5px 9px;border:1px solid #d9dfd2}
+.meta td.k{background:#eef6e2;color:#3f6212;font-weight:600;width:14%}
+.meta td.v{width:36%}
+
+/* sections */
+h2{font-size:11.8pt;color:#18260D;margin:15px 0 6px;padding-bottom:3px;border-bottom:1px solid #d9dfd2;display:flex;gap:8px;align-items:baseline}
+h2 .n{color:#6d9a3a;font-weight:700}
+p{margin:0 0 6px}
+ul{margin:0 0 6px 18px}
+li{margin:2px 0}
+li b,p b{color:#18260D}
+code{font-family:Consolas,"Courier New",monospace;font-size:9pt;background:#f2f4ef;padding:0 3px;border-radius:2px}
+
+/* flow diagram */
+.flow{display:flex;align-items:stretch;gap:0;margin:8px 0 10px}
+.flow .box{flex:1;border:1.2px solid #18260D;padding:6px 6px;text-align:center;font-size:8.8pt;line-height:1.3;background:#fff}
+.flow .box b{display:block;font-size:9.4pt;color:#18260D}
+.flow .box span{color:#5b6652}
+.flow .box.hl{background:#eef6e2}
+.flow .arrow{width:16px;display:flex;align-items:center;justify-content:center;color:#6d9a3a;font-weight:700}
+
+/* two-column feature list */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:4px 22px}
+.cols ul{margin-left:16px}
+
+/* results table */
+table.res{width:100%;border-collapse:collapse;font-size:9.3pt;margin:4px 0 6px}
+.res th{background:#18260D;color:#fff;font-weight:600;text-align:left;padding:5px 8px}
+.res td{padding:3px 8px;border-bottom:1px solid #e3e8dd}
+.res tr:nth-child(even) td{background:#f7f9f4}
+.res td.c,.res th.c{text-align:center;width:6%}
+.res td.ok{color:#3f6212;font-weight:700}
+.summary{display:inline-block;background:#eef6e2;border-left:3px solid #6d9a3a;padding:4px 10px;font-weight:600;color:#18260D;margin-top:2px}
+
+/* screenshots */
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin-top:6px}
+figure{border:1px solid #d9dfd2}
+figure img{display:block;width:100%;height:43mm;object-fit:cover;object-position:top center}
+figcaption{font-size:8.6pt;color:#5b6652;padding:4px 7px;border-top:1px solid #d9dfd2;background:#fafbf8}
+figcaption b{color:#18260D}
+
+.foot{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;font-size:8pt;color:#8a9381;border-top:1px solid #e3e8dd;padding-top:4px}
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 ============ -->
+<section class="page">
+  <div class="head">
+    <div>
+      <h1>Math Word Problem Solver using an LLM</h1>
+      <div class="sub">Procedure Report &nbsp;|&nbsp; GenAI Mini Project, Problem Statement 26</div>
+    </div>
+    <img src="../static/img/logo-light.png" alt="Solvely">
+  </div>
+
+  <table class="meta">
+    <tr><td class="k">Name</td><td class="v">Spandan Chavan</td><td class="k">Roll No.</td><td class="v">26</td></tr>
+    <tr><td class="k">Project</td><td class="v">Solvely</td><td class="k">GitHub</td><td class="v" style="white-space:nowrap">github.com/SpandanChavan/llm-ps26-21CS045</td></tr>
+  </table>
+
+  <h2><span class="n">1.</span> Problem Understanding</h2>
+  <p>Many students understand arithmetic but struggle to turn a word problem into the right sequence of operations. The aim of this project is a tool that takes a word problem in plain English, solves it <b>step by step</b>, explains each step in simple words and gives a clear final answer. Because language models can make arithmetic slips, every answer is <b>independently re-checked with Python</b> before it is shown.</p>
+
+  <h2><span class="n">2.</span> Approach and Prompt Design</h2>
+  <ul>
+    <li><b>Model:</b> GPT-OSS 120B through the free Groq API, temperature 0.1 for consistent answers.</li>
+    <li><b>System prompt:</b> the model acts as a patient maths tutor, is told to think step by step, and must follow a fixed format: Given, To find, Step 1 to n, then the final answer on the last line.</li>
+    <li><b>Few-shot example:</b> one fully solved problem shows the exact format, which makes the output reliable to parse.</li>
+    <li><b>Verification hook:</b> the model also writes the arithmetic as one expression, e.g. <code>EXPRESSION: 540/(360/4)</code>. SymPy evaluates it (only digits and operators are allowed, so no unsafe code can run) and compares it with the final answer.</li>
+  </ul>
+
+  <div class="flow">
+    <div class="box"><b>1. Input</b><span>Student types a word problem</span></div><div class="arrow">&rsaquo;</div>
+    <div class="box"><b>2. Prompt</b><span>Rules + worked example</span></div><div class="arrow">&rsaquo;</div>
+    <div class="box"><b>3. LLM</b><span>Steps + expression + answer</span></div><div class="arrow">&rsaquo;</div>
+    <div class="box hl"><b>4. Verify</b><span>SymPy recomputes the answer</span></div><div class="arrow">&rsaquo;</div>
+    <div class="box"><b>5. Display</b><span>Answer sheet in the web UI</span></div>
+  </div>
+
+  <h2><span class="n">3.</span> Implementation</h2>
+  <ul>
+    <li><b>Stack:</b> Python, FastAPI (backend), HTML/CSS/JavaScript (frontend), Groq API, SymPy.</li>
+    <li><code>solver.py</code> builds the prompt, calls the model, parses steps, expression and answer with regular expressions, and verifies the result with SymPy.</li>
+    <li><code>app.py</code> serves the web page and a <code>/api/solve</code> endpoint. The API key is kept in a git-ignored <code>.env</code> file.</li>
+  </ul>
+  <p style="margin-top:4px"><b>User interface</b> (<code>static/index.html</code>), designed to keep the student focused:</p>
+  <div class="cols">
+    <ul>
+      <li><b>Question slip:</b> one large input that highlights every number it finds, so missing data is easy to spot.</li>
+      <li><b>Topic index:</b> six sample problems to start from.</li>
+      <li><b>Answer sheet:</b> steps numbered in a margin, final answer boxed, and the SymPy result shown as a "checked" stamp.</li>
+    </ul>
+    <ul>
+      <li><b>Learn mode:</b> shows one step at a time and hides the answer until the student has tried each step.</li>
+      <li><b>Dark mode</b> for comfortable night study.</li>
+      <li><b>Solve history:</b> past problems saved in the browser and reopened without another API call.</li>
+    </ul>
+  </div>
+
+  <div class="foot"><span>Solvely: Math Word Problem Solver</span><span>Page 1 of 2</span></div>
+</section>
+
+<!-- ============ PAGE 2 ============ -->
+<section class="page">
+  <h2 style="margin-top:0"><span class="n">4.</span> Testing on Sample Inputs</h2>
+  <table class="res">
+    <tr><th class="c">#</th><th>Problem</th><th>Expected</th><th>Model answer</th><th>SymPy check</th></tr>
+    <tr><td class="c">1</td><td>Train covers 360 km in 4 h; time for 540 km</td><td>6 h</td><td>6 h</td><td class="ok">Pass</td></tr>
+    <tr><td class="c">2</td><td>Riya has 3 times Aman's marbles; total 64</td><td>48</td><td>48 marbles</td><td class="ok">Pass</td></tr>
+    <tr><td class="c">3</td><td>Shirt bought for Rs 800, sold at 25% profit</td><td>Rs 1000</td><td>Rs 1000</td><td class="ok">Pass</td></tr>
+    <tr><td class="c">4</td><td>Rectangle, length = width + 5, perimeter 50 cm; area</td><td>150 cm&sup2;</td><td>150 cm&sup2;</td><td class="ok">Pass</td></tr>
+    <tr><td class="c">5</td><td>Rs 10000 at 8% compound interest for 2 years</td><td>Rs 11664</td><td>Rs 11664</td><td class="ok">Pass</td></tr>
+    <tr><td class="c">6</td><td>Pipe A fills a tank in 6 h, pipe B in 3 h; together</td><td>2 h</td><td>2 h</td><td class="ok">Pass</td></tr>
+  </table>
+  <div class="summary">Result: 6 out of 6 correct, all verified by SymPy.</div>
+
+  <h2><span class="n">5.</span> Observations and Limitations</h2>
+  <ul>
+    <li>The fixed step format made solutions easy to follow and reliable to parse.</li>
+    <li>The SymPy check catches cases where the explanation and the final number disagree.</li>
+    <li>Testing showed the model sometimes replied in LaTeX; this was fixed with a "plain text only" rule in the prompt and a clean-up step in the UI.</li>
+    <li><b>Limitations:</b> needs internet and an API key; the check confirms the arithmetic, not whether the chosen method is correct; diagrams and images are not supported.</li>
+  </ul>
+
+  <h2><span class="n">6.</span> Conclusion and Future Scope</h2>
+  <p>Solvely is a working LLM tutor that explains word problems step by step and checks its own arithmetic. Future work: Hindi and Marathi support, checking the method symbolically with SymPy, photo input for textbook problems, and a practice mode that generates similar problems.</p>
+
+  <h2><span class="n">7.</span> Screenshots</h2>
+  <div class="shots">
+    <figure><img src="../screenshots/1_home.jpg"><figcaption><b>Fig 1.</b> Question slip with numbers highlighted</figcaption></figure>
+    <figure><img src="../screenshots/2_answer_sheet.jpg"><figcaption><b>Fig 2.</b> Step-by-step answer sheet with SymPy stamp</figcaption></figure>
+    <figure><img src="../screenshots/3_answer_box.jpg" style="object-position:center 60%"><figcaption><b>Fig 3.</b> Boxed final answer and verification note</figcaption></figure>
+    <figure><img src="../screenshots/4_learn_mode_dark.jpg"><figcaption><b>Fig 4.</b> Learn mode in dark theme, answer hidden</figcaption></figure>
+  </div>
+
+  <div class="foot"><span>Solvely: Math Word Problem Solver</span><span>Page 2 of 2</span></div>
+</section>
+</body>
+</html>
