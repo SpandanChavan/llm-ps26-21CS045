@@ -1,5 +1,5 @@
 # Math Word Problem Solver using LLM — Procedure Report
-**Name:** ______  **Roll No:** 26  **PS No:** 26  **GitHub:** https://github.com/SpandanChavan/llm-ps26-21CS045
+**Name:** Spandan Chavan  **Roll No:** 26  **PS No:** 26  **GitHub:** https://github.com/SpandanChavan/llm-ps26-21CS045
 
 ## 1. Problem Understanding
 Students often understand arithmetic but fail to convert a word problem into the right sequence of operations. The goal is a tool that takes a word problem in plain English, solves it **step by step with an explanation of each step**, and gives a clear final answer. Because LLMs sometimes make arithmetic slips, the answer is **independently verified** with Python (SymPy).
