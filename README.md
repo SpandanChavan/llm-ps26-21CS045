@@ -10,11 +10,11 @@
    `EXPRESSION: <pure arithmetic>` and `FINAL ANSWER: <number> <unit>`.
 3. The LLM (GPT-OSS 120B via the free Groq API) returns the solution.
 4. The app parses the output, re-computes `EXPRESSION` with **SymPy** (only digits and operators allowed, so no unsafe `eval`) and compares it with the final answer (= verified / ≠ mismatch).
-5. The UI shows *Given / To find*, then an animated step timeline. **Learn mode** reveals one step at a time and blurs the answer until the student has tried each step.
-6. **Dark mode** (follows the system setting, toggle with the moon icon or `D`) and **Solve history** (saved in the browser, searchable, reopen any past solution instantly without another API call; open with the clock icon or `H`).
+5. The UI shows the result as an exam-style answer sheet: the question, a Data / Required table, numbered steps, a boxed final answer and a SymPy "checked" stamp. **Learn mode** reveals one step at a time and hides the answer until the student has tried each step.
+6. **Dark mode** (follows the system setting; toggle with the theme button or `D`) and **Solve history** (saved in the browser, searchable, reopens past solutions without another API call; open with the History button or `H`).
 
 ## Tech stack
-Python · FastAPI · HTML/CSS/JS (custom UI) · Groq API (`openai/gpt-oss-120b`) · SymPy · python-dotenv
+Python, FastAPI, HTML/CSS/JavaScript (custom UI), Groq API (`openai/gpt-oss-120b`), SymPy, python-dotenv
 
 ## How to run
 ```bash
@@ -31,6 +31,7 @@ python app.py              # opens http://localhost:8000
 | `solver.py` | Prompt, LLM call, output parsing, SymPy verification |
 | `requirements.txt` | Dependencies |
 | `.env.example` | Template for the API key (real `.env` is git-ignored) |
+| `report/report.html` | Source of the 2-page procedure report (`Report.pdf`) |
 
 ## Screenshots
 ![home](screenshots/1_home.jpg)
