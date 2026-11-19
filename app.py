@@ -1,52 +1,52 @@
-import streamlit as st
+"""Web app: FastAPI backend + hand-built HTML frontend (static/index.html).
 
-from solver import MODEL, solve
+Run:  python app.py   ->  open http://localhost:8000
+"""
+import os
+import webbrowser
 
-st.set_page_config(page_title="Math Word Problem Solver", page_icon="🧮", layout="centered")
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
 
-SAMPLES = [
-    "A train travels 360 km in 4 hours. How long will it take to travel 540 km at the same speed?",
-    "Riya has 3 times as many marbles as Aman. Together they have 64 marbles. How many marbles does Riya have?",
-    "A shopkeeper buys a shirt for Rs 800 and sells it at a 25% profit. What is the selling price?",
-    "The length of a rectangle is 5 cm more than its width. Its perimeter is 50 cm. Find its area.",
-    "Rs 10000 is invested at 8% compound interest per year. What is the amount after 2 years?",
-    "A tank is filled by pipe A in 6 hours and by pipe B in 3 hours. How long do both pipes together take?",
-]
+from solver import MODEL, solve, structure
 
-with st.sidebar:
-    st.header("Settings")
-    api_key = st.text_input("Groq API key (optional if set in .env)", type="password")
-    st.caption(f"Model: `{MODEL}`")
-    st.markdown("Free key: https://console.groq.com/keys")
+app = FastAPI(title="Math Word Problem Solver")
+STATIC = os.path.join(os.path.dirname(__file__), "static")
 
-st.title("🧮 Math Word Problem Solver")
-st.write("Type a word problem. The LLM solves it step by step, and SymPy re-checks the arithmetic.")
 
-choice = st.selectbox("Try a sample problem", ["(write my own)"] + SAMPLES)
-problem = st.text_area("Word problem", value="" if choice == "(write my own)" else choice, height=120)
+class Problem(BaseModel):
+    problem: str
 
-if st.button("Solve", type="primary", disabled=not problem.strip()):
-    with st.spinner("Thinking step by step..."):
-        try:
-            result = solve(problem, api_key or None)
-        except Exception as e:  # noqa: BLE001
-            st.error(str(e))
-            st.stop()
 
-    st.subheader("Step-by-step solution")
-    st.markdown(result["steps"])
+@app.get("/")
+def index():
+    return FileResponse(os.path.join(STATIC, "index.html"))
 
-    st.subheader("Final answer")
-    st.success(result["final_text"] or "Not found")
 
-    v = result["verification"]
-    st.subheader("Verification")
-    if v["status"] == "pass":
-        st.info(f"✅ {v['message']}  Expression `{result['expression']}` = {v['computed']:g}")
-    elif v["status"] == "fail":
-        st.warning(f"⚠️ {v['message']}  `{result['expression']}` = {v['computed']:g}, but answer says {v['stated']:g}")
-    else:
-        st.caption(f"ℹ️ {v['message']}")
+@app.get("/api/info")
+def info():
+    return {"model": MODEL}
 
-    with st.expander("Raw LLM output"):
-        st.code(result["raw"])
+
+@app.post("/api/solve")
+def api_solve(body: Problem):
+    text = body.problem.strip()
+    if not text:
+        raise HTTPException(400, "Please type a word problem first.")
+    if len(text) > 2000:
+        raise HTTPException(400, "Problem is too long (max 2000 characters).")
+    try:
+        r = solve(text)
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(502, f"LLM call failed: {e}") from e
+    return {**structure(r["steps"]), "final": r["final_text"], "expression": r["expression"],
+            "verification": r["verification"], "raw": r["raw"]}
+
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))
+    if not os.getenv("NO_BROWSER"):
+        webbrowser.open(f"http://localhost:{port}")
+    uvicorn.run(app, host="127.0.0.1", port=port)

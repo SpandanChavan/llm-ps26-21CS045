@@ -14,7 +14,7 @@ Students often understand arithmetic but fail to convert a word problem into the
 1. Created a Groq API key and stored it in `.env` (git-ignored).
 2. Tested the prompt with 6 sample problems and tuned the format.
 3. `solver.py`: `build_messages()` → `call_llm()` → `parse_response()` (regex for steps / expression / answer) → `verify()` (SymPy).
-4. `app.py`: Streamlit UI with sample-problem dropdown, text box, Solve button, step-by-step output, final answer box and verification badge (✅ / ⚠️).
+4. `app.py` (FastAPI) serves `/api/solve`; `static/index.html` is a custom UI designed for low cognitive load: one big input, topic chips (no blank-page anxiety), staged loader (Reading → Planning → Calculating → Verifying), Given/To-find tags, an animated step timeline and a ✅/⚠️ verification card. **Learn mode** reveals one step at a time and blurs the answer so students attempt each step first.
 5. Pushed code to GitHub with README, requirements.txt and .gitignore.
 
 ## 4. Testing on Sample Inputs

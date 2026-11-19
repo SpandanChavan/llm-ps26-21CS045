@@ -1,4 +1,5 @@
-streamlit
+fastapi
+uvicorn
 groq
 sympy
 python-dotenv

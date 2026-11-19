@@ -119,3 +119,28 @@ def solve(problem: str, api_key: str | None = None) -> dict:
     parsed["verification"] = verify(parsed["expression"], parsed["final_number"])
     parsed["raw"] = raw
     return parsed
+
+
+_STEP = re.compile(r"^\s*\**Step\s*(\d+)\s*:?\**:?\s*(.+)$", re.I)
+_FIELD = re.compile(r"^\s*\**(Given|To find)\s*:?\**:?\s*(.+)$", re.I)
+
+
+def structure(steps_text: str) -> dict:
+    """Turn the markdown steps into {given, to_find, steps:[{n, explain, calc}]} for the web UI."""
+    out = {"given": "", "to_find": "", "steps": []}
+    field = None
+    for line in steps_text.splitlines():
+        if m := re.match(r"^\s*\**(Given|To find)\s*:?\**:?\s*(.*)$", line, re.I):
+            field = "given" if m.group(1).lower() == "given" else "to_find"
+            out[field] = m.group(2).strip()
+        elif field and not out["steps"] and re.match(r"^\s*[-*•]\s+", line):
+            item = re.sub(r"^\s*[-*•]\s+", "", line).strip()
+            out[field] = f"{out[field]}; {item}".strip("; ") if out[field] else item
+        elif m := _STEP.match(line):
+            field = None
+            body = m.group(2).strip()
+            explain, _, calc = body.partition("->") if "->" in body else body.partition("→")
+            out["steps"].append({"n": int(m.group(1)), "explain": explain.strip(), "calc": calc.strip()})
+        elif out["steps"] and line.strip() and not line.strip().startswith("**"):
+            out["steps"][-1]["explain"] += " " + line.strip()
+    return out
