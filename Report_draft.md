@@ -1,4 +1,4 @@
-# Math Word Problem Solver using LLM — Procedure Report
+# Math Word Problem Solver using LLM: Procedure Report
 **Name:** Spandan Chavan  **Roll No:** 26  **PS No:** 26  **GitHub:** https://github.com/SpandanChavan/llm-ps26-21CS045
 
 ## 1. Problem Understanding
@@ -14,18 +14,18 @@ Students often understand arithmetic but fail to convert a word problem into the
 1. Created a Groq API key and stored it in `.env` (git-ignored).
 2. Tested the prompt with 6 sample problems and tuned the format.
 3. `solver.py`: `build_messages()` → `call_llm()` → `parse_response()` (regex for steps / expression / answer) → `verify()` (SymPy).
-4. `app.py` (FastAPI) serves `/api/solve`; `static/index.html` is a custom UI designed for low cognitive load: one big input, topic chips (no blank-page anxiety), staged loader (Reading → Planning → Calculating → Verifying), Given/To-find tags, an animated step timeline and a ✅/⚠️ verification card. **Learn mode** reveals one step at a time and blurs the answer so students attempt each step first. Also added **dark mode** (eye comfort for night study) and a searchable **solve history** stored in the browser, so past solutions reopen instantly without another API call.
+4. `app.py` (FastAPI) serves `/api/solve`; `static/index.html` is a custom UI designed for low cognitive load: one big input, a numbered topic index (no blank-page anxiety), staged loader (Reading → Planning → Calculating → Verifying), Given/To-find tags, an animated step timeline and an = / ≠ verification card. **Learn mode** reveals one step at a time and blurs the answer so students attempt each step first. Also added **dark mode** (eye comfort for night study) and a searchable **solve history** stored in the browser, so past solutions reopen instantly without another API call.
 5. Pushed code to GitHub with README, requirements.txt and .gitignore.
 
 ## 4. Testing on Sample Inputs
 | # | Problem (short) | Expected | LLM answer | SymPy check |
 |---|---|---|---|---|
-| 1 | Train 360 km in 4 h, time for 540 km | 6 h | 6 h | ✅ Pass |
-| 2 | Riya = 3×Aman, total 64 | 48 | 48 marbles | ✅ Pass |
-| 3 | Rs 800 shirt, 25% profit, SP | Rs 1000 | 1000 Rs | ✅ Pass |
-| 4 | Rectangle, l = w+5, perimeter 50, area | 150 cm² | 150 cm² | ✅ Pass |
-| 5 | Rs 10000 at 8% CI, 2 years | Rs 11664 | 11664 Rs | ✅ Pass |
-| 6 | Pipes 6 h and 3 h together | 2 h | 2 hours | ✅ Pass |
+| 1 | Train 360 km in 4 h, time for 540 km | 6 h | 6 h | Pass |
+| 2 | Riya = 3×Aman, total 64 | 48 | 48 marbles | Pass |
+| 3 | Rs 800 shirt, 25% profit, SP | Rs 1000 | 1000 Rs | Pass |
+| 4 | Rectangle, l = w+5, perimeter 50, area | 150 cm² | 150 cm² | Pass |
+| 5 | Rs 10000 at 8% CI, 2 years | Rs 11664 | 11664 Rs | Pass |
+| 6 | Pipes 6 h and 3 h together | 2 h | 2 hours | Pass |
 
 **Result: 6/6 correct, all verified by SymPy.** Screenshots attached in `screenshots/`.
 

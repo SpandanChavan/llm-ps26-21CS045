@@ -28,6 +28,7 @@ Rules:
 - EXPRESSION and FINAL ANSWER must be the last two lines.
 - In EXPRESSION, do not use variables, words, units, % signs or commas inside numbers.
 - If the problem has no numeric answer, write EXPRESSION: none.
+- Write plain text only. Do NOT use LaTeX or backslash commands. Use * or x for multiply and / for divide.
 """
 
 FEW_SHOT_USER = "A pen costs Rs 12 and a notebook costs Rs 35. How much do 3 pens and 2 notebooks cost?"
