@@ -34,7 +34,6 @@ python app.py              # opens http://localhost:8000
 
 ## Screenshots
 ![home](screenshots/1_home.jpg)
-![solution](screenshots/2_solution_verified.jpg)
-![answer](screenshots/6_answer_box.jpg)
-![dark mode](screenshots/4_dark_mode.jpg)
-![history](screenshots/5_history.jpg)
+![answer sheet](screenshots/2_answer_sheet.jpg)
+![answer](screenshots/3_answer_box.jpg)
+![learn mode, dark](screenshots/4_learn_mode_dark.jpg)

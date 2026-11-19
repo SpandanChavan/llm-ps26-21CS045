@@ -86,8 +86,8 @@ h1 .hl::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.08em;heigh
 /* ---------- solver ---------- */
 /* question slip: same paper language as the answer sheet */
 .solver{--m:64px;--lh:34px;position:relative;max-width:820px;margin:44px auto 0;text-align:left}
-.slip-wrap{filter:drop-shadow(0 0 0 transparent);transition:filter .35s var(--ease),transform .35s var(--ease)}
-.solver:focus-within .slip-wrap{filter:drop-shadow(8px 8px 0 var(--lime));transform:translate(-2px,-2px)}
+.slip-wrap{filter:drop-shadow(0 1.5px 0 var(--ink)) drop-shadow(0 0 0 transparent);transition:filter .35s var(--ease),transform .35s var(--ease)}
+.solver:focus-within .slip-wrap{filter:drop-shadow(0 1.5px 0 var(--ink)) drop-shadow(8px 8px 0 var(--lime));transform:translate(-2px,-2px)}
 .slip{position:relative;background:var(--surface);border:1.5px solid var(--ink);border-bottom:0;
   clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),97.5% 100%,95% calc(100% - 10px),92.5% 100%,90% calc(100% - 10px),87.5% 100%,85% calc(100% - 10px),82.5% 100%,80% calc(100% - 10px),77.5% 100%,75% calc(100% - 10px),72.5% 100%,70% calc(100% - 10px),67.5% 100%,65% calc(100% - 10px),62.5% 100%,60% calc(100% - 10px),57.5% 100%,55% calc(100% - 10px),52.5% 100%,50% calc(100% - 10px),47.5% 100%,45% calc(100% - 10px),42.5% 100%,40% calc(100% - 10px),37.5% 100%,35% calc(100% - 10px),32.5% 100%,30% calc(100% - 10px),27.5% 100%,25% calc(100% - 10px),22.5% 100%,20% calc(100% - 10px),17.5% 100%,15% calc(100% - 10px),12.5% 100%,10% calc(100% - 10px),7.5% 100%,5% calc(100% - 10px),2.5% 100%,0 calc(100% - 10px));
   padding-bottom:16px}
