@@ -2,6 +2,8 @@
 
 # Solvely: Math Word Problem Solver (LLM Mini Project)
 
+**Live demo:** https://solvely-tutor.vercel.app
+
 **Problem statement:** Students struggle with word problems. This app solves a math word problem step by step, explains each step in simple words, and verifies the arithmetic with Python (SymPy).
 
 ## How it works
