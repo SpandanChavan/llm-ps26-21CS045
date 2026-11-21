@@ -552,7 +552,7 @@ function render(problem){
   steps=data.steps.length?data.steps:[{n:1,explain:data.raw,calc:''}];
   $('timeline').innerHTML=steps.map(s=>`<div class="step"><div class="node">(${s.n})</div><div class="body"><div class="explain">${md(s.explain)}</div>${s.calc?`<code class="calc">${md(s.calc.replace(/^=\s*/,''))}</code>`:''}</div></div>`).join('');
   $('final').innerHTML=md(data.final||'Not found');
-  $('raw').textContent=data.raw;$('raw').hidden=true;$('rawBtn').setAttribute('aria-expanded','false');
+  $('raw').textContent=data.raw;$('raw').hidden=true;$('rawBtn').setAttribute('aria-expanded','false');$('rawBtn').textContent='Raw output';
   $('sheetMeta').textContent=new Date().toLocaleString(undefined,{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).toUpperCase()+' / '+steps.length+' STEPS';
   const learn=$('learn').checked;
   $('answerCard').classList.toggle('locked',learn);$('timeline').classList.toggle('learn',learn);$('revealBtn').hidden=!learn;

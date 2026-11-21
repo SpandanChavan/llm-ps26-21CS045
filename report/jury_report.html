@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Solvely - Jury Report</title>
+<style>
+@page{size:A4;margin:15mm 16mm 13mm}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Calibri,Arial,sans-serif;font-size:10.4pt;line-height:1.5;color:#1f2a17}
+.page{page-break-after:always;height:268mm;position:relative;overflow:hidden}
+.page:last-child{page-break-after:auto}
+h1{font-size:24pt;line-height:1.15;color:#18260D;font-weight:700}
+h2{font-size:15pt;color:#18260D;margin:0 0 10px;padding-bottom:6px;border-bottom:2px solid #18260D;display:flex;gap:10px;align-items:baseline}
+h2 .n{color:#6d9a3a}
+h3{font-size:11.5pt;color:#18260D;margin:14px 0 5px}
+p{margin:0 0 7px}
+ul,ol{margin:0 0 7px 20px}
+li{margin:3px 0}
+b{color:#18260D}
+code{font-family:Consolas,"Courier New",monospace;font-size:9.2pt;background:#f2f4ef;padding:0 3px}
+pre{font-family:Consolas,"Courier New",monospace;font-size:8.6pt;background:#f5f7f2;border-left:3px solid #6d9a3a;padding:8px 10px;white-space:pre-wrap;margin:4px 0 8px;line-height:1.4}
+table{width:100%;border-collapse:collapse;font-size:9.4pt;margin:4px 0 8px}
+th{background:#18260D;color:#fff;font-weight:600;text-align:left;padding:5px 8px}
+td{padding:5px 8px;border-bottom:1px solid #e3e8dd;vertical-align:top}
+tr:nth-child(even) td{background:#f7f9f4}
+.k{color:#3f6212;font-weight:600;width:28%}
+.note{background:#eef6e2;border-left:3px solid #6d9a3a;padding:7px 11px;margin:6px 0 8px}
+.foot{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;font-size:8pt;color:#8a9381;border-top:1px solid #e3e8dd;padding-top:4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.card{border:1px solid #d9dfd2;padding:9px 12px;break-inside:avoid}
+.card h4{font-size:10.4pt;color:#18260D;margin-bottom:3px}
+.card p{font-size:9.6pt;margin:0;color:#3c4733}
+.card .tag{font-size:8.4pt;color:#6d9a3a;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+
+/* title page */
+.cover{display:flex;flex-direction:column;height:100%}
+.cover .top{border-bottom:3px solid #18260D;padding-bottom:16px}
+.cover .logo{height:64px;margin-bottom:28px}
+.cover .kicker{font-size:10pt;letter-spacing:.16em;text-transform:uppercase;color:#6d9a3a;font-weight:700;margin-bottom:8px}
+.cover h1{font-size:30pt}
+.cover .sub{font-size:13pt;color:#5b6652;margin-top:8px}
+.cover table{margin-top:22px;font-size:10.4pt}
+.cover table td{padding:8px 10px;border:1px solid #d9dfd2}
+.cover table td.k{background:#eef6e2}
+.toc{margin-top:22px}
+.toc h3{margin-top:0}
+.toc ol{margin-left:18px;columns:2;column-gap:30px}
+.toc li{margin:4px 0}
+.cover .bottom{margin-top:auto;font-size:9pt;color:#8a9381;border-top:1px solid #e3e8dd;padding-top:8px;display:flex;justify-content:space-between}
+
+/* diagrams */
+.diagram{display:flex;justify-content:center;margin:6px 0 8px}
+.legend{font-size:9pt;color:#5b6652}
+
+/* screenshots */
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.step{border:1px solid #d9dfd2;break-inside:avoid}
+.step img{display:block;width:100%;height:54mm;object-fit:cover;object-position:top center}
+.step .cap{padding:5px 8px;font-size:8.8pt;line-height:1.35;background:#fafbf8;border-top:1px solid #d9dfd2;min-height:15mm}
+.step .cap b{display:block;font-size:9.4pt}
+.step .no{display:inline-block;background:#18260D;color:#ABD37A;font-weight:700;font-size:8.4pt;padding:0 6px;margin-right:6px}
+.step.wide{grid-column:span 2}
+.tall .step img{height:auto!important;object-fit:fill}
+.mobile-row{display:grid;grid-template-columns:44mm 1fr;gap:14px;align-items:start}
+.mobile-row img{height:82mm;object-fit:cover;object-position:top}
+</style>
+</head>
+<body>
+
+<!-- ================= 1. TITLE ================= -->
+<section class="page">
+ <div class="cover">
+  <div class="top">
+   <img class="logo" src="../static/img/logo-light.png" alt="Solvely">
+   <div class="kicker">GenAI Mini Project | Jury Report</div>
+   <h1>Solvely: Math Word Problem Solver using a Large Language Model</h1>
+   <div class="sub">An AI tutor that solves word problems step by step, explains every step, and verifies its own arithmetic with Python.</div>
+  </div>
+
+  <table>
+   <tr><td class="k">Student</td><td>Spandan Chavan</td></tr>
+   <tr><td class="k">Roll No. / PS No.</td><td>26 / 26</td></tr>
+   <tr><td class="k">Programme</td><td>B.Tech, Computer Science and Engineering (AI and Analytics)</td></tr>
+   <tr><td class="k">Institute</td><td>MIT Art, Design and Technology University, Pune</td></tr>
+   <tr><td class="k">Live application</td><td>https://solvely-tutor.vercel.app</td></tr>
+   <tr><td class="k">Source code</td><td>https://github.com/SpandanChavan/llm-ps26-21CS045</td></tr>
+   <tr><td class="k">Technology</td><td>Python, FastAPI, Groq LLM (GPT-OSS 120B), SymPy, HTML/CSS/JavaScript, Vercel</td></tr>
+  </table>
+
+  <div class="toc">
+   <h3>Contents</h3>
+   <ol>
+    <li>Title</li>
+    <li>Objective</li>
+    <li>Design Principles</li>
+    <li>Technical Model Detail</li>
+    <li>Technical Model Detail (continued)</li>
+    <li>Block Diagram</li>
+    <li>Flowchart</li>
+    <li>Working Model: Steps 1 to 4</li>
+    <li>Working Model: Steps 5 to 8</li>
+    <li>Working Model: Steps 9 to 13</li>
+   </ol>
+  </div>
+
+  <div class="bottom"><span>Solvely | Jury Report</span><span>November 2026</span></div>
+ </div>
+</section>
+
+<!-- ================= 2. OBJECTIVE ================= -->
+<section class="page">
+ <h2><span class="n">2.</span> Objective</h2>
+
+ <h3 style="margin-top:4px">Problem statement</h3>
+ <p>Students often understand arithmetic but struggle to turn a word problem into the right sequence of operations. Textbook answer keys give only the final number, and general chatbots give long answers that can contain arithmetic mistakes the student cannot spot. The student is left either copying an answer or trusting one that may be wrong.</p>
+
+ <h3>Aim</h3>
+ <p>To build a web application that takes a math word problem in plain English, solves it <b>step by step</b>, explains <b>why</b> each step is taken, and <b>independently verifies</b> the arithmetic before the answer is shown, so that a student can both learn the method and trust the result.</p>
+
+ <h3>Objectives</h3>
+ <ol>
+  <li><b>Understand the problem:</b> extract what is given (data) and what must be found (required) before solving, the step most students skip.</li>
+  <li><b>Explain the method:</b> produce a short, numbered solution with one idea per step and the calculation for each step.</li>
+  <li><b>Verify the answer:</b> make the language model state its arithmetic as a single expression and recompute it with SymPy, flagging any mismatch.</li>
+  <li><b>Support learning, not copying:</b> provide a Learn mode that reveals one step at a time and hides the answer until the student has tried each step.</li>
+  <li><b>Be easy to use:</b> one obvious input, sample problems to start from, clear feedback while the answer is prepared, and a layout that works on phones.</li>
+  <li><b>Be available to anyone:</b> deploy the application publicly at no cost, keeping the API key secret.</li>
+ </ol>
+
+ <h3>Scope</h3>
+ <div class="grid2">
+  <div class="card"><div class="tag">In scope</div><p>Arithmetic and algebra word problems from school and early college: speed and distance, ratios, profit and loss, interest, area and perimeter, time and work. Text input in English.</p></div>
+  <div class="card"><div class="tag">Out of scope</div><p>Problems that depend on diagrams or images, proofs, calculus and higher mathematics, and handwritten input. These are listed as future work.</p></div>
+ </div>
+
+ <h3>Expected outcomes</h3>
+ <table>
+  <tr><th>Outcome</th><th>How it is measured</th></tr>
+  <tr><td>Correct answers</td><td>Sample problems give the expected answer (6 of 6 achieved)</td></tr>
+  <tr><td>Trustworthy answers</td><td>Every numeric answer is re-checked by SymPy and marked "Checked" or "Recheck"</td></tr>
+  <tr><td>Fast response</td><td>A full step-by-step solution in about three seconds</td></tr>
+  <tr><td>Accessible</td><td>Works in any browser and on phones, at https://solvely-tutor.vercel.app</td></tr>
+ </table>
+
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 2 of 10</span></div>
+</section>
+
+<!-- ================= 3. DESIGN PRINCIPLES ================= -->
+<section class="page">
+ <h2><span class="n">3.</span> Design Principles</h2>
+ <p>The design starts from the student's state of mind: a student facing a word problem is usually stuck and slightly anxious. Every principle below answers one question: <i>what helps a stuck student learn and trust the answer?</i></p>
+
+ <h3>User experience principles</h3>
+ <div class="grid2">
+  <div class="card"><h4>1. One obvious action</h4><p>The page has a single large input and one Solve button. Fewer choices reduce cognitive load and make the first step clear.</p></div>
+  <div class="card"><h4>2. No blank-page anxiety</h4><p>A numbered topic index (Speed, Ratio, Profit, Geometry, Interest, Work) loads a sample problem in one click, so the student never starts from nothing.</p></div>
+  <div class="card"><h4>3. Visible understanding</h4><p>While typing, a "Numbers spotted" strip highlights every quantity and unit found, so the student can check that no data is missing before solving.</p></div>
+  <div class="card"><h4>4. Purposeful waiting</h4><p>The loader shows stages (Reading, Planning, Calculating, Verifying) instead of a spinner, so the wait feels like progress.</p></div>
+  <div class="card"><h4>5. Familiar format</h4><p>The answer is laid out like an exam answer sheet: question, a Data and Required table, numbered steps in a margin, and a boxed final answer after a "therefore" sign.</p></div>
+  <div class="card"><h4>6. Learning before answers</h4><p>Learn mode reveals one line at a time and blurs the answer until every step is seen (progressive disclosure), which encourages the student to think first.</p></div>
+  <div class="card"><h4>7. Trust through evidence</h4><p>A "Checked by SymPy" stamp shows that the arithmetic was recomputed independently, with the exact expression shown underneath.</p></div>
+  <div class="card"><h4>8. Comfort and memory</h4><p>Dark mode for night study, and a searchable history so past solutions reopen instantly without another request.</p></div>
+ </div>
+
+ <h3>Engineering principles</h3>
+ <table>
+  <tr><th style="width:30%">Principle</th><th>How it is applied</th></tr>
+  <tr><td class="k">Separation of concerns</td><td><code>solver.py</code> holds the AI logic, <code>app.py</code> the web server, <code>static/index.html</code> the interface; each can change without breaking the others.</td></tr>
+  <tr><td class="k">Do not trust, verify</td><td>The model's answer is never shown as correct on its own word; SymPy recomputes it.</td></tr>
+  <tr><td class="k">Safe by default</td><td>Only digits and arithmetic operators are evaluated, so model output can never run code. The API key is kept in an environment variable, never in the code.</td></tr>
+  <tr><td class="k">Fail gracefully</td><td>Empty input disables the button, overlong input is rejected, and model errors show a clear message instead of crashing.</td></tr>
+  <tr><td class="k">Consistency and accessibility</td><td>One colour palette, square shapes and type scale throughout; keyboard shortcuts, readable contrast in both themes, and a layout that adapts to phones.</td></tr>
+ </table>
+
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 3 of 10</span></div>
+</section>
+
+<!-- ================= 4. TECHNICAL MODEL ================= -->
+<section class="page">
+ <h2><span class="n">4.</span> Technical Model Detail</h2>
+
+ <h3 style="margin-top:4px">Language model</h3>
+ <table>
+  <tr><td class="k">Model</td><td>GPT-OSS 120B (open-weight, 120 billion parameters), served through the Groq API</td></tr>
+  <tr><td class="k">Why this model</td><td>Strong step-by-step reasoning, free tier, and very fast responses on Groq hardware (about 3 s per solution)</td></tr>
+  <tr><td class="k">Temperature</td><td>0.1, so the same problem gives consistent, focused answers</td></tr>
+  <tr><td class="k">Training</td><td>None required: the model is used as-is and controlled through prompt design (prompt engineering)</td></tr>
+ </table>
+
+ <h3>Prompt design</h3>
+ <p>The prompt has three parts, sent as a chat conversation:</p>
+ <ol>
+  <li><b>System prompt:</b> the model is a "patient math tutor", must think step by step, explain each step in simple words, write plain text only (no LaTeX), and follow a fixed output format.</li>
+  <li><b>Few-shot example:</b> one fully solved problem (pens and notebooks) shows the exact format, which makes the output reliable to parse.</li>
+  <li><b>The student's problem.</b></li>
+ </ol>
+ <p>The fixed output format (the "contract" between the model and the program):</p>
+<pre>**Given:** pen = Rs 12, notebook = Rs 35, buying 3 pens and 2 notebooks.
+**To find:** total cost.
+
+**Step 1:** Cost of 3 pens -> 3 * 12 = 36
+**Step 2:** Cost of 2 notebooks -> 2 * 35 = 70
+**Step 3:** Add both costs -> 36 + 70 = 106
+
+EXPRESSION: 3*12 + 2*35
+FINAL ANSWER: 106 Rs</pre>
+
+ <h3>Processing pipeline</h3>
+ <table>
+  <tr><th style="width:24%">Stage</th><th>What happens</th><th style="width:20%">Code</th></tr>
+  <tr><td class="k">1. Build prompt</td><td>System rules + worked example + student's problem</td><td><code>build_messages()</code></td></tr>
+  <tr><td class="k">2. Call model</td><td>Request sent to Groq with the secret key from the environment</td><td><code>call_llm()</code></td></tr>
+  <tr><td class="k">3. Parse</td><td>Regular expressions split the reply into Given, To find, steps, expression and final answer</td><td><code>parse_response()</code>, <code>structure()</code></td></tr>
+  <tr><td class="k">4. Verify</td><td>SymPy evaluates the expression and compares it with the final answer</td><td><code>verify()</code></td></tr>
+  <tr><td class="k">5. Respond</td><td>Structured JSON is returned to the browser and rendered as the answer sheet</td><td><code>/api/solve</code></td></tr>
+ </table>
+
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 4 of 10</span></div>
+</section>
+
+<!-- ================= 5. TECHNICAL MODEL (cont.) ================= -->
+<section class="page">
+ <h2><span class="n">5.</span> Technical Model Detail (continued)</h2>
+
+ <h3 style="margin-top:4px">Verification with SymPy</h3>
+ <ul>
+  <li>The expression is first checked against a whitelist: only digits, spaces, <code>+ - * / ( ) .</code> are allowed. Anything else is skipped, so no code from the model can ever run.</li>
+  <li>SymPy evaluates the expression exactly (using rational numbers), then compares it with the number in the final answer.</li>
+  <li>A 1% tolerance allows for rounding, e.g. 66.67 versus 200/3.</li>
+  <li>Result: <b>Checked (=)</b> if they match, <b>Recheck (&ne;)</b> if they do not, or <b>Unchecked (?)</b> if there is nothing numeric to check.</li>
+ </ul>
+
+ <h3>Web API</h3>
+<pre>POST /api/solve
+Request : { "problem": "A train travels 360 km in 4 hours. How long for 540 km?" }
+Response: { "given": "...", "to_find": "...",
+            "steps": [ {"n": 1, "explain": "Find the speed", "calc": "360 / 4 = 90"}, ... ],
+            "final": "6 h", "expression": "540/(360/4)",
+            "verification": { "status": "pass", "computed": 6.0, "stated": 6.0 } }</pre>
+
+ <h3>Technology stack</h3>
+ <table>
+  <tr><th style="width:24%">Layer</th><th>Technology</th><th>Purpose</th></tr>
+  <tr><td class="k">Frontend</td><td>HTML, CSS, JavaScript (no framework)</td><td>Answer-sheet interface, Learn mode, dark mode, history</td></tr>
+  <tr><td class="k">Backend</td><td>Python, FastAPI, Uvicorn</td><td>Serves the page and the <code>/api/solve</code> endpoint</td></tr>
+  <tr><td class="k">AI model</td><td>Groq API, GPT-OSS 120B</td><td>Step-by-step solution</td></tr>
+  <tr><td class="k">Verification</td><td>SymPy</td><td>Exact recomputation of the arithmetic</td></tr>
+  <tr><td class="k">Storage</td><td>Browser localStorage</td><td>Solve history and preferences, kept on the student's device</td></tr>
+  <tr><td class="k">Hosting</td><td>Vercel (serverless), GitHub</td><td>Public deployment and source control</td></tr>
+ </table>
+
+ <h3>Testing on sample inputs</h3>
+ <table>
+  <tr><th>#</th><th>Problem</th><th>Expected</th><th>Model answer</th><th>SymPy</th></tr>
+  <tr><td>1</td><td>Train covers 360 km in 4 h; time for 540 km</td><td>6 h</td><td>6 h</td><td>Pass</td></tr>
+  <tr><td>2</td><td>Riya has 3 times Aman's marbles; total 64</td><td>48</td><td>48 marbles</td><td>Pass</td></tr>
+  <tr><td>3</td><td>Shirt bought for Rs 800, sold at 25% profit</td><td>Rs 1000</td><td>Rs 1000</td><td>Pass</td></tr>
+  <tr><td>4</td><td>Rectangle, length = width + 5, perimeter 50 cm; area</td><td>150 cm&sup2;</td><td>150 cm&sup2;</td><td>Pass</td></tr>
+  <tr><td>5</td><td>Rs 10000 at 8% compound interest for 2 years</td><td>Rs 11664</td><td>Rs 11664</td><td>Pass</td></tr>
+  <tr><td>6</td><td>Pipes fill a tank in 6 h and 3 h; together</td><td>2 h</td><td>2 h</td><td>Pass</td></tr>
+ </table>
+ <div class="note"><b>Result: 6 out of 6 correct, all verified by SymPy.</b> Testing also showed the model sometimes replied in LaTeX; this was fixed with a "plain text only" rule in the prompt and a clean-up step in the interface.</div>
+
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 5 of 10</span></div>
+</section>
+
+<!-- ================= 6. BLOCK DIAGRAM ================= -->
+<section class="page">
+ <h2><span class="n">6.</span> Block Diagram</h2>
+ <p>The system has four layers: the student's browser, the web server, the solver module, and the external language model. Data flows down as a request and back up as a verified, structured answer.</p>
+
+ <div class="diagram">
+ <svg viewBox="0 0 720 720" width="100%" style="max-height:205mm" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+   <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#18260D"/></marker>
+  </defs>
+
+  <!-- tier 1 client -->
+  <rect x="10" y="10" width="700" height="168" fill="#f7f9f4" stroke="#18260D" stroke-width="1.6"/>
+  <text x="24" y="34" font-size="13" font-weight="700" fill="#18260D">CLIENT: Web browser (static/index.html)</text>
+  <text x="696" y="34" font-size="11" fill="#6d9a3a" text-anchor="end">student</text>
+  <g font-size="12" fill="#1f2a17" text-anchor="middle">
+   <rect x="28" y="50" width="210" height="52" fill="#fff" stroke="#6d9a3a"/><text x="133" y="72">Question slip</text><text x="133" y="89" font-size="10.5" fill="#5b6652">input + numbers spotted</text>
+   <rect x="255" y="50" width="210" height="52" fill="#fff" stroke="#6d9a3a"/><text x="360" y="72">Topic index</text><text x="360" y="89" font-size="10.5" fill="#5b6652">6 sample problems</text>
+   <rect x="482" y="50" width="210" height="52" fill="#fff" stroke="#6d9a3a"/><text x="587" y="72">Answer sheet</text><text x="587" y="89" font-size="10.5" fill="#5b6652">steps, boxed answer, stamp</text>
+   <rect x="28" y="112" width="210" height="52" fill="#fff" stroke="#6d9a3a"/><text x="133" y="134">Learn mode</text><text x="133" y="151" font-size="10.5" fill="#5b6652">one step at a time</text>
+   <rect x="255" y="112" width="210" height="52" fill="#fff" stroke="#6d9a3a"/><text x="360" y="134">Solve history</text><text x="360" y="151" font-size="10.5" fill="#5b6652">browser localStorage</text>
+   <rect x="482" y="112" width="210" height="52" fill="#fff" stroke="#6d9a3a"/><text x="587" y="134">Dark mode</text><text x="587" y="151" font-size="10.5" fill="#5b6652">theme preference</text>
+  </g>
+
+  <!-- arrows 1-2 -->
+  <line x1="300" y1="180" x2="300" y2="226" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="420" y1="226" x2="420" y2="180" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/>
+  <text x="292" y="206" font-size="10.5" text-anchor="end" fill="#3f6212">HTTPS POST {problem}</text>
+  <text x="428" y="206" font-size="10.5" fill="#3f6212">JSON {steps, answer, check}</text>
+
+  <!-- tier 2 server -->
+  <rect x="10" y="228" width="700" height="112" fill="#f7f9f4" stroke="#18260D" stroke-width="1.6"/>
+  <text x="24" y="252" font-size="13" font-weight="700" fill="#18260D">SERVER: FastAPI on Vercel (app.py)</text>
+  <g font-size="12" fill="#1f2a17" text-anchor="middle">
+   <rect x="28" y="266" width="210" height="58" fill="#fff" stroke="#6d9a3a"/><text x="133" y="290">GET /  and  /static</text><text x="133" y="308" font-size="10.5" fill="#5b6652">page, logo, favicon</text>
+   <rect x="255" y="266" width="210" height="58" fill="#eef6e2" stroke="#18260D"/><text x="360" y="290" font-weight="600">POST /api/solve</text><text x="360" y="308" font-size="10.5" fill="#5b6652">validate input (1 to 2000 chars)</text>
+   <rect x="482" y="266" width="210" height="58" fill="#fff" stroke="#6d9a3a" stroke-dasharray="5 3"/><text x="587" y="290">GROQ_API_KEY</text><text x="587" y="308" font-size="10.5" fill="#5b6652">secret environment variable</text>
+  </g>
+
+  <!-- arrows 2-3 -->
+  <line x1="360" y1="342" x2="360" y2="388" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <!-- tier 3 solver -->
+  <rect x="10" y="390" width="700" height="150" fill="#f7f9f4" stroke="#18260D" stroke-width="1.6"/>
+  <text x="24" y="414" font-size="13" font-weight="700" fill="#18260D">SOLVER MODULE (solver.py)</text>
+  <g font-size="12" fill="#1f2a17" text-anchor="middle">
+   <rect x="24" y="432" width="150" height="64" fill="#fff" stroke="#6d9a3a"/><text x="99" y="456">Prompt builder</text><text x="99" y="473" font-size="10.5" fill="#5b6652">rules + worked</text><text x="99" y="487" font-size="10.5" fill="#5b6652">example + problem</text>
+   <rect x="196" y="432" width="150" height="64" fill="#fff" stroke="#6d9a3a"/><text x="271" y="456">LLM client</text><text x="271" y="473" font-size="10.5" fill="#5b6652">Groq SDK,</text><text x="271" y="487" font-size="10.5" fill="#5b6652">temperature 0.1</text>
+   <rect x="368" y="432" width="150" height="64" fill="#fff" stroke="#6d9a3a"/><text x="443" y="456">Parser</text><text x="443" y="473" font-size="10.5" fill="#5b6652">regex: steps,</text><text x="443" y="487" font-size="10.5" fill="#5b6652">expression, answer</text>
+   <rect x="540" y="432" width="156" height="64" fill="#eef6e2" stroke="#18260D"/><text x="618" y="456" font-weight="600">SymPy verifier</text><text x="618" y="473" font-size="10.5" fill="#5b6652">whitelist, evaluate,</text><text x="618" y="487" font-size="10.5" fill="#5b6652">compare (1% tol.)</text>
+  </g>
+  <line x1="174" y1="464" x2="194" y2="464" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="346" y1="464" x2="366" y2="464" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="518" y1="464" x2="538" y2="464" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/>
+  <text x="360" y="526" font-size="10.5" text-anchor="middle" fill="#5b6652">structured result returned to the server, then to the browser</text>
+
+  <!-- tier 4 external -->
+  <line x1="250" y1="497" x2="250" y2="598" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="292" y1="598" x2="292" y2="499" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/>
+  <text x="244" y="568" font-size="10.5" text-anchor="end" fill="#3f6212">prompt + API key</text>
+  <text x="300" y="568" font-size="10.5" fill="#3f6212">solution text</text>
+  <rect x="130" y="600" width="300" height="78" fill="#18260D"/>
+  <text x="280" y="630" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ABD37A">EXTERNAL: Groq Cloud API</text>
+  <text x="280" y="652" font-size="11.5" text-anchor="middle" fill="#e6f0d6">GPT-OSS 120B language model</text>
+  <text x="280" y="668" font-size="10.5" text-anchor="middle" fill="#a3b896">step-by-step reasoning</text>
+
+  <!-- legend -->
+  <g font-size="10.5" fill="#5b6652">
+   <rect x="470" y="606" width="14" height="14" fill="#eef6e2" stroke="#18260D"/><text x="492" y="618">core component</text>
+   <rect x="470" y="630" width="14" height="14" fill="#fff" stroke="#6d9a3a" stroke-dasharray="4 2"/><text x="492" y="642">secret configuration</text>
+   <line x1="470" y1="662" x2="484" y2="662" stroke="#18260D" stroke-width="1.6" marker-end="url(#ar)"/><text x="492" y="666">data flow</text>
+  </g>
+ </svg>
+ </div>
+ <table>
+  <tr><th style="width:24%">Block</th><th>Role</th></tr>
+  <tr><td class="k">Client</td><td>Collects the problem, shows progress, renders the answer sheet; keeps history and theme on the device</td></tr>
+  <tr><td class="k">Server</td><td>Validates the request and keeps the API key secret; the browser never sees the key</td></tr>
+  <tr><td class="k">Solver module</td><td>Turns the problem into a prompt, calls the model, parses the reply and verifies the arithmetic</td></tr>
+  <tr><td class="k">Groq Cloud API</td><td>Runs the GPT-OSS 120B language model that writes the step-by-step solution</td></tr>
+ </table>
+
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 6 of 10</span></div>
+</section>
+
+<!-- ================= 7. FLOWCHART ================= -->
+<section class="page">
+ <h2><span class="n">7.</span> Flowchart</h2>
+ <p style="margin-bottom:2px">The complete path of one problem, from the student's input to the verified answer, including the error and Learn mode branches.</p>
+
+ <div class="diagram">
+ <svg viewBox="0 0 720 1140" style="height:228mm" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" text-anchor="middle">
+  <defs>
+   <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#18260D"/></marker>
+  </defs>
+  <g stroke="#18260D" stroke-width="1.5" fill="none">
+   <!-- main spine -->
+   <line x1="330" y1="48" x2="330" y2="76" marker-end="url(#fa)"/>
+   <line x1="330" y1="122" x2="330" y2="138" marker-end="url(#fa)"/>
+   <line x1="330" y1="222" x2="330" y2="243" marker-end="url(#fa)"/>
+   <line x1="330" y1="289" x2="330" y2="313" marker-end="url(#fa)"/>
+   <line x1="330" y1="353" x2="330" y2="378" marker-end="url(#fa)"/>
+   <line x1="330" y1="424" x2="330" y2="448" marker-end="url(#fa)"/>
+   <line x1="330" y1="488" x2="330" y2="503" marker-end="url(#fa)"/>
+   <line x1="330" y1="587" x2="330" y2="608" marker-end="url(#fa)"/>
+   <line x1="330" y1="654" x2="330" y2="668" marker-end="url(#fa)"/>
+   <line x1="330" y1="752" x2="330" y2="773" marker-end="url(#fa)"/>
+   <line x1="330" y1="817" x2="330" y2="838" marker-end="url(#fa)"/>
+   <line x1="330" y1="882" x2="330" y2="898" marker-end="url(#fa)"/>
+   <line x1="330" y1="982" x2="330" y2="1008" marker-end="url(#fa)"/>
+   <line x1="330" y1="1048" x2="330" y2="1078" marker-end="url(#fa)"/>
+   <!-- D1 yes loop (right) -->
+   <polyline points="450,180 520,180" marker-end="url(#fa)"/>
+   <polyline points="610,158 610,100 462,100" marker-end="url(#fa)"/>
+   <!-- D2 no loop (left) -->
+   <polyline points="210,545 152,545" marker-end="url(#fa)"/>
+   <polyline points="80,523 80,100 198,100" marker-end="url(#fa)"/>
+   <!-- D3 no (right) -->
+   <polyline points="460,710 520,710" marker-end="url(#fa)"/>
+   <polyline points="610,732 610,860 462,860" marker-end="url(#fa)"/>
+   <!-- D4 yes (right) -->
+   <polyline points="440,940 520,940" marker-end="url(#fa)"/>
+   <polyline points="610,962 610,1099 438,1099" marker-end="url(#fa)"/>
+  </g>
+
+  <!-- terminators -->
+  <rect x="250" y="10" width="160" height="38" rx="19" fill="#18260D"/><text x="330" y="34" fill="#ABD37A" font-weight="700">Start</text>
+  <rect x="250" y="1080" width="160" height="38" rx="19" fill="#18260D"/><text x="330" y="1104" fill="#ABD37A" font-weight="700">End</text>
+
+  <!-- process boxes -->
+  <g fill="#fff" stroke="#18260D" stroke-width="1.4">
+   <rect x="200" y="78" width="260" height="44"/>
+   <rect x="200" y="245" width="260" height="44"/>
+   <rect x="200" y="315" width="260" height="38"/>
+   <rect x="200" y="380" width="260" height="44"/>
+   <rect x="200" y="450" width="260" height="38"/>
+   <rect x="200" y="610" width="260" height="44"/>
+   <rect x="200" y="775" width="260" height="42" fill="#eef6e2"/>
+   <rect x="200" y="840" width="260" height="42"/>
+   <rect x="200" y="1010" width="260" height="38"/>
+   <rect x="520" y="158" width="190" height="44" fill="#f7f9f4"/>
+   <rect x="10" y="523" width="140" height="44" fill="#fbe9e6"/>
+   <rect x="520" y="688" width="190" height="44" fill="#fbe9e6"/>
+   <rect x="520" y="918" width="190" height="44" fill="#f7f9f4"/>
+  </g>
+  <g fill="#1f2a17">
+   <text x="330" y="97">Student types a problem</text><text x="330" y="113" font-size="11" fill="#5b6652">or picks a topic from the index</text>
+   <text x="330" y="264">Click Solve (or Ctrl+Enter)</text><text x="330" y="280" font-size="11" fill="#5b6652">loader: Reading, Planning, Calculating, Verifying</text>
+   <text x="330" y="339">Send POST /api/solve to server</text>
+   <text x="330" y="399">Build prompt</text><text x="330" y="415" font-size="11" fill="#5b6652">system rules + worked example + problem</text>
+   <text x="330" y="474">Groq LLM returns the solution</text>
+   <text x="330" y="629">Parse the reply</text><text x="330" y="645" font-size="11" fill="#5b6652">Given, To find, steps, expression, answer</text>
+   <text x="330" y="801" font-weight="600">Stamp: CHECKED (=)</text>
+   <text x="330" y="866">Save the solution to history</text>
+   <text x="330" y="1034">Show all steps and the answer</text>
+   <text x="615" y="177">Solve button stays</text><text x="615" y="193">disabled</text>
+   <text x="80" y="542">Show error message,</text><text x="80" y="558">keep the input</text>
+   <text x="615" y="707" font-weight="600">Stamp: RECHECK (&#8800;)</text><text x="615" y="723" font-size="11" fill="#5b6652">student is warned</text>
+   <text x="615" y="937">Reveal one step per click,</text><text x="615" y="953">then unlock the answer</text>
+  </g>
+
+  <!-- decisions -->
+  <g fill="#fffbe9" stroke="#b07d12" stroke-width="1.4">
+   <polygon points="330,140 450,180 330,220 210,180"/>
+   <polygon points="330,505 450,545 330,585 210,545"/>
+   <polygon points="330,670 460,710 330,750 200,710"/>
+   <polygon points="330,900 440,940 330,980 220,940"/>
+  </g>
+  <g fill="#1f2a17">
+   <text x="330" y="185">Is the input empty?</text>
+   <text x="330" y="542">Did the request</text><text x="330" y="558">succeed?</text>
+   <text x="330" y="707">Does SymPy's result</text><text x="330" y="723">match the answer?</text>
+   <text x="330" y="945">Is Learn mode on?</text>
+  </g>
+
+  <!-- branch labels -->
+  <g font-size="11.5" font-weight="700" fill="#b07d12">
+   <text x="478" y="172">Yes</text><text x="344" y="237" text-anchor="start">No</text>
+   <text x="184" y="537">No</text><text x="344" y="600" text-anchor="start">Yes</text>
+   <text x="488" y="702">No</text><text x="344" y="765" text-anchor="start">Yes</text>
+   <text x="474" y="932">Yes</text><text x="344" y="997" text-anchor="start">No</text>
+  </g>
+  <text x="680" y="130" font-size="10.5" fill="#5b6652" text-anchor="end">try again</text>
+  <text x="66" y="300" font-size="10.5" fill="#5b6652" transform="rotate(-90 66 300)">try again</text>
+ </svg>
+ </div>
+
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 7 of 10</span></div>
+</section>
+
+<!-- ================= 8. SCREENSHOTS 1-4 ================= -->
+<section class="page">
+ <h2><span class="n">8.</span> Working Model: Steps 1 to 4</h2>
+ <p>Screenshots of the deployed application at <b>https://solvely-tutor.vercel.app</b>, in the order a student uses it.</p>
+ <div class="steps tall">
+  <div class="step"><img src="shots/01_landing.png"><div class="cap"><b><span class="no">1</span>Open the application</b>The home page shows one headline, one input slip and one Solve button.</div></div>
+  <div class="step"><img src="shots/02_typing_numbers_spotted.png"><div class="cap"><b><span class="no">2</span>Type the problem</b>The "Numbers spotted" strip picks out Rs 800 and 25 % live, so missing data is easy to notice.</div></div>
+  <div class="step"><img src="shots/03_topic_index_preview.png" style="object-position:center 40%"><div class="cap"><b><span class="no">3</span>Or pick a topic</b>Hovering a topic previews its sample problem; clicking loads it into the slip.</div></div>
+  <div class="step"><img src="shots/04_solving_loader.png" style="object-position:center 30%"><div class="cap"><b><span class="no">4</span>Click Solve</b>The loader moves through Reading, Planning, Calculating and Verifying while the model works.</div></div>
+ </div>
+ <table style="margin-top:12px">
+  <tr><th style="width:8%">Step</th><th style="width:30%">System part (block diagram)</th><th>What happens behind the screen</th></tr>
+  <tr><td>1</td><td class="k">Server: GET /</td><td>FastAPI on Vercel serves the page, logo and favicon</td></tr>
+  <tr><td>2</td><td class="k">Client: question slip</td><td>JavaScript finds each number and unit as the student types and checks the 2000-character limit</td></tr>
+  <tr><td>3</td><td class="k">Client: topic index</td><td>Six built-in sample problems; nothing is sent to the server yet</td></tr>
+  <tr><td>4</td><td class="k">Server: POST /api/solve</td><td>The problem is sent to the server, which builds the prompt and calls the Groq model</td></tr>
+ </table>
+ <div class="note">The input slip uses the same red margin and ruled lines as the answer sheet, so the question the student writes visibly becomes the "Q." on the marked answer.</div>
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 8 of 10</span></div>
+</section>
+
+<!-- ================= 9. SCREENSHOTS 5-8 ================= -->
+<section class="page">
+ <h2><span class="n">9.</span> Working Model: Steps 5 to 8</h2>
+ <div class="steps tall">
+  <div class="step"><img src="shots/05_answer_sheet.png"><div class="cap"><b><span class="no">5</span>Read the answer sheet</b>The question, a Data and Required table, and numbered steps, each with its calculation.</div></div>
+  <div class="step"><img src="shots/06_answer_and_verification.png" style="object-position:center 55%"><div class="cap"><b><span class="no">6</span>See the verified answer</b>The answer is boxed after a "therefore" sign; SymPy recomputed 800 + 800*25/100 = 1000, which matches.</div></div>
+  <div class="step"><img src="shots/07_raw_output.png" style="object-position:center 60%"><div class="cap"><b><span class="no">7</span>Inspect the raw output</b>For transparency, the exact text returned by the model can be opened under the sheet.</div></div>
+  <div class="step"><img src="shots/08_learn_mode_locked.png"><div class="cap"><b><span class="no">8</span>Switch on Learn mode</b>Only the first step is shown; the answer and the stamp stay blurred until the student works through the rest.</div></div>
+ </div>
+ <table style="margin-top:12px">
+  <tr><th style="width:8%">Step</th><th style="width:30%">System part (block diagram)</th><th>What happens behind the screen</th></tr>
+  <tr><td>5</td><td class="k">Solver: parser</td><td>The model's reply is split into Given, To find, numbered steps and the final answer</td></tr>
+  <tr><td>6</td><td class="k">Solver: SymPy verifier</td><td>The expression is recomputed exactly and compared with the answer; the stamp shows the result</td></tr>
+  <tr><td>7</td><td class="k">Client: answer sheet</td><td>The unmodified model text is kept in the response for transparency</td></tr>
+  <tr><td>8</td><td class="k">Client: Learn mode</td><td>All steps are already received; the browser simply reveals them one at a time</td></tr>
+ </table>
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 9 of 10</span></div>
+</section>
+
+<!-- ================= 10. SCREENSHOTS 9-13 ================= -->
+<section class="page">
+ <h2><span class="n">10.</span> Working Model: Steps 9 to 13</h2>
+ <div class="steps">
+  <div class="step"><img src="shots/09_learn_mode_revealed.png" style="height:46mm;object-position:center 45%"><div class="cap"><b><span class="no">9</span>Reveal one line at a time</b>Each "Write next line" click adds a step; here 3 of 5 steps are shown and the answer is still hidden.</div></div>
+  <div class="step"><img src="shots/10_dark_mode.png" style="height:46mm"><div class="cap"><b><span class="no">10</span>Dark mode</b>One click switches the whole page, including the answer sheet, to a dark theme for night study.</div></div>
+  <div class="step"><img src="shots/11_history.png" style="height:46mm;object-position:right top"><div class="cap"><b><span class="no">11</span>Solve history</b>Past problems are saved in the browser and reopen instantly, without calling the model again.</div></div>
+  <div class="step"><img src="shots/12_how_it_works.png" style="height:46mm;object-position:center 30%"><div class="cap"><b><span class="no">12</span>How it works</b>Read + Solve + Verify = Understood: each term explains one stage of the system.</div></div>
+ </div>
+ <div class="mobile-row" style="margin-top:10px">
+  <div class="step"><img src="shots/13_mobile.png"></div>
+  <div class="card" style="align-self:stretch"><h4><span class="no" style="display:inline-block;background:#18260D;color:#ABD37A;font-size:8.4pt;padding:0 6px;margin-right:6px">13</span>Works on phones</h4>
+   <p style="margin-bottom:8px">The same application adapts to a phone screen: the slip, the topic index and the answer sheet reflow into one column with no sideways scrolling.</p>
+   <h4 style="margin-top:6px">Conclusion</h4>
+   <p>Solvely meets its objectives: it solves word problems correctly (6 of 6 test cases), explains every step, verifies each answer with SymPy, and supports learning through Learn mode. It is deployed publicly at no cost.</p>
+   <h4 style="margin-top:6px">Future scope</h4>
+   <p>Hindi and Marathi support, checking the method symbolically with SymPy, photo input for textbook problems, and a practice mode that generates similar problems.</p>
+  </div>
+ </div>
+ <div class="foot"><span>Solvely | Jury Report</span><span>Page 10 of 10</span></div>
+</section>
+</body>
+</html>
