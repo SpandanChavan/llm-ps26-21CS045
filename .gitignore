@@ -4,3 +4,6 @@ venv/
 __pycache__/
 Code.zip
 Submission_PS26/
+
+.vercel
+.env*

@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+venv/
+.venv/
+__pycache__/
+*.pyc
+Submission_PS26/
+Code.zip
+.claude/

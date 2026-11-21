@@ -57,7 +57,7 @@ def call_llm(problem: str, api_key: str | None = None, temperature: float = 0.1)
 
     key = api_key or os.getenv("GROQ_API_KEY")
     if not key:
-        raise RuntimeError("No GROQ_API_KEY found. Put it in a .env file or paste it in the sidebar.")
+        raise RuntimeError("No GROQ_API_KEY found. Add it to a .env file locally, or to the host's environment variables when deployed.")
     client = Groq(api_key=key)
     resp = client.chat.completions.create(
         model=MODEL,
